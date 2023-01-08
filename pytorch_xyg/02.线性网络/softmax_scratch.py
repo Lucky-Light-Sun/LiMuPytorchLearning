@@ -144,4 +144,13 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    true = torch.randn((4, 100, 20))
+    pred = torch.randn((4, 100, 20))
+    delta = 1.0
+    loss = torch.where(
+        torch.abs(true-pred) < delta, 
+        0.5 * ((true - pred) ** 2), 
+        delta * torch.abs(true - pred) - 0.5 * (delta ** 2)
+    ).mean()
+    print(loss)
